@@ -88,6 +88,8 @@ void ADodgeball::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UP
 		OtherComponent->AddImpulseAtLocation(ProjectileMovementComponent->Velocity * 100.0f, Hit.ImpactPoint);
 	}
 
+
+
 }
 
 
