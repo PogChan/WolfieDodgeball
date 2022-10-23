@@ -8,6 +8,7 @@
 #include "GameFramework/Character.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "Dodgeball.h"
 #include "PlayerChar.generated.h"
 
 UCLASS()
@@ -22,6 +23,10 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	// Projectile class to spawn.
+	UPROPERTY(EditDefaultsOnly, Category = Projectile)
+		TSubclassOf<class ADodgeball> ProjectileClass;
 
 public:	
 	// Called every frame
@@ -46,7 +51,15 @@ public:
 	UFUNCTION()
 		void StopJump();
 
+	// Function that handles firing projectiles.
+	UFUNCTION()
+		void Fire();
+
 	// FPS camera.
 	UPROPERTY(VisibleAnywhere)
 		UCameraComponent* FPSCameraComponent;
+
+	// Gun muzzle offset from the camera location.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+		FVector MuzzleOffset;
 };
