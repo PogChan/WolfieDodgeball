@@ -2,6 +2,7 @@
 
 
 #include "PlayerChar.h"
+bool haveBall = true;
 
 // Sets default values
 APlayerChar::APlayerChar()
@@ -17,7 +18,7 @@ APlayerChar::APlayerChar()
 	FPSCameraComponent->SetupAttachment(CastChecked<USceneComponent, UCapsuleComponent>(GetCapsuleComponent()));
 
 	// Position the camera slightly above the eyes.
-	FPSCameraComponent->SetRelativeLocation(FVector(0.0f, 0.0f, 50.0f + BaseEyeHeight));
+	FPSCameraComponent->SetRelativeLocation(FVector(0.0f, 0.0f, 20.0f + BaseEyeHeight));
 
 	// Enable the pawn to control camera rotation.
 	FPSCameraComponent->bUsePawnControlRotation = true;
@@ -109,7 +110,7 @@ void APlayerChar::StopJump()
 void APlayerChar::Fire()
 {
 	// Attempt to fire a projectile.
-	if (ProjectileClass)
+	if (ProjectileClass && haveBall) //and counter is not zero
 	{
 		// Get the camera transform.
 		FVector CameraLocation;
@@ -124,7 +125,7 @@ void APlayerChar::Fire()
 
 		// Skew the aim to be slightly upwards.
 		FRotator MuzzleRotation = CameraRotation;
-		MuzzleRotation.Pitch += 10.0f;
+		MuzzleRotation.Pitch += 5.0f;
 
 		UWorld* World = GetWorld();
 		if (World)
@@ -137,10 +138,12 @@ void APlayerChar::Fire()
 			ADodgeball* Projectile = World->SpawnActor<ADodgeball>(ProjectileClass, MuzzleLocation, MuzzleRotation, SpawnParams);
 			if (Projectile)
 			{
+				// decrement some counter
 				// Set the projectile's initial trajectory.
 				FVector LaunchDirection = MuzzleRotation.Vector();
 				Projectile->FireInDirection(LaunchDirection);
 			}
 		}
 	}
+	haveBall = false;
 }
