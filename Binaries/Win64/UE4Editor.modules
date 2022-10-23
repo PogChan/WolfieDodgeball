@@ -2,10 +2,6 @@
 	"BuildId": "17155196",
 	"Modules": 
 	{
-<<<<<<< HEAD
-		"WolfieDodgeball": "UE4Editor-WolfieDodgeball-2174.dll"
-=======
 		"WolfieDodgeball": "UE4Editor-WolfieDodgeball.dll"
->>>>>>> 62f1daef6c564c5365f6cbcb3a917097d31993c4
 	}
 }
